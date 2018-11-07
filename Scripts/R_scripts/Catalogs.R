@@ -30,7 +30,7 @@ rastercatalog<-function(folder,ext="tif",...){
 }
 
 #Spatial catalogs. Catalogs as SpatialPolygonDataframe
-#The next five function create a SpatialPolygonDataframe from: a 
+#The next five function create a SpatialPolygonDataframe from:
 #1 data.frame a 2 LASCatalog from LiDR package a 3 RasterCatalog created with the function
 #rastercatalog or 4 a string giving a path. In the later case the function creates 
 #a catalog (Either LASCatalog or RasterCatalog) based on the extension indicated ext and
@@ -72,9 +72,7 @@ SpatialCatalog.LAScatalog<-function(catalog,expand=0,CRS=NULL){
 	
 	if(is.null(CRS)){CRS<-as.character(catalog@crs)}
 	catalog<-data.frame(catalog@data)
-	catalog$CRS<-CRS
 	SpatialCatalog(catalog,expand=expand,CRS=CRS)
-	
 }
 
 SpatialCatalog.RasterCatalog<-function(catalog,expand=0,CRS=NULL){
@@ -90,12 +88,11 @@ SpatialCatalog.character<-function(catalog,ext="tif",expand=0,CRS=NULL,...){
 	
 	if(ext%in%c("las","laz")){
 		catalog<-catalog(catalog,...)
-		catalog<-SpatialCatalog(catalog,expand=expand,CRS=CRS)
 	}else{
-		catalog<-rastercatalog(catalog,ext,...)
-		catalog<-SpatialCatalog(catalog,expand=expand,CRS=CRS)
-	}
 
+		catalog<-rastercatalog(catalog,ext,...)	
+	}
+	SpatialCatalog(catalog,expand=expand,CRS=CRS)
 	
 }
 
@@ -111,6 +108,7 @@ path_to_shp_catalog<-function(path,out_path,name,
 	return(catalog)
 	
 }
+
 #This  creates a SpatialPolygonDataframe object
 #rcat<-SpatialCatalog("PATH")
 #This  creates a SpatialPolygonDataframe object and stores it
